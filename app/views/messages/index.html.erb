@@ -1,2 +1,29 @@
-<h1>Messages#index</h1>
-<p>Find me in app/views/messages/index.html.erb</p>
+<h1>メッセージ一覧</h1>
+<% @messages.each do |message| %>
+  名前:
+<%= message.name %>
+  内容:
+<%= message.body %>
+  <br>
+<% a = message.body.encode("Shift_JIS") %>
+<% b = message.body.encode("UTF-8") %>
+<% qr1 = RQRCode::QRCode.new( a, :size => 3, :level => :h ).to_img %>
+<% qr2 = RQRCode::QRCode.new( b, :size => 3, :level => :h ).to_img %>
+
+<% qr1.resize(200, 200).save("1.png") %>
+<% qr2.resize(200, 200).save("2.png") %>
+
+
+
+<% end %>
+
+<br>
+<%= form_for(Message.new) do |f| %>
+  名前:
+<%= f.text_field :name %>
+
+  内容:
+<%= f.text_field :body %>
+<%= f.submit %>
+
+<% end %>
