@@ -5,17 +5,15 @@
   内容:
 <%= message.body %>
   <br>
-<% a = message.body.encode("Shift_JIS") %>
-<% b = message.body.encode("UTF-8") %>
-<% qr1 = RQRCode::QRCode.new( a, :size => 3, :level => :h ).to_img %>
-<% qr2 = RQRCode::QRCode.new( b, :size => 3, :level => :h ).to_img %>
+<% str = message.body + "\n" + message.name + "さんからのメッセージです" %>
+<% str_jis = str.encode("Shift_JIS") %>
+<% qr = RQRCode::QRCode.new( str_jis, :size => 10, :level => :h ).to_img %>
 
-<% qr1.resize(200, 200).save("1.png") %>
-<% qr2.resize(200, 200).save("2.png") %>
-
-
-
+<% qr.resize(200, 200).save("app/assets/images/test.png") %>
 <% end %>
+
+<%= image_tag 'test.png' %>
+
 
 <br>
 <%= form_for(Message.new) do |f| %>
