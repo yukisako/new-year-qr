@@ -18,11 +18,26 @@
 
 <br>
 <%= form_for(Message.new) do |f| %>
-  名前:
-<%= f.text_field :name %>
+  <% if @message.errors.present? %> <div class="alert alert-danger">
+    <%= alert %>
+    <ul>
+      <% @message.errors.full_messages.each do |full_message| %>
+        <li>
+          <%= full_message %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
+  名前:
+<br>
+<%= f.text_field :name %>
+<br>
   内容:
-<%= f.text_field :body %>
+<br>
+<%= f.text_area :body %>
+<br>
 <%= f.submit("Create QR", class: "btn btn-sm btn-primary") %>
 
 <% end %>
