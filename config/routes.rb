@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+  get 'messages/help' => 'messages#help'
   root 'messages#index'
   resource :messages
+
+  get 'images/:id' => 'images#show'
+  post 'images' => 'images#create'
+
+  get 'images/download/' => 'images#download'
+#  get 'images/download' => 'images#download'
+  put 'images/:id/upload' => 'images#upload'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

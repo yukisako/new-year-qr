@@ -2,9 +2,14 @@
   <div class="panel-heading">
     最近作成されたメッセージ一覧
   </div>
-
   <div class="panel-body">
-    <% num = @size < 11 ? @size+1 : 10 %> 
+    <% @messages.each do |message| %>
+      <span class="label label-info"><%= message.name %></span> <%= message.body %>
+      <br>
+    <% end %>
+  </div>
+  <div class="panel-body">
+    <% num = @size < 11 ? @size : 10 %> 
     <% num.times do |i| %>
       <span class="label label-info"><%= @messages[@size-i].name %></span> <%= @messages[@size-i].body %>
       <br>
@@ -46,29 +51,7 @@
 <br>
 <%= f.submit("Create QR", class: "btn btn-sm btn-primary") %>
 
-
-
-
 <% end %>
-<br>
-<hr>
 
-<div>こんな年賀状が作れます♫</div>
+<%= image_tag 'sample1.png' %>
 
-<%= image_tag 'sample1.png', :width => '450'%>
-
-<%= image_tag 'sample2.png', :width => '300'%>
-<br><br>
-<div>できたQRコードは読み取ったらこんな感じに表示されます．</div>
-<br>
-<center>
-<%= image_tag 'sample3.jpg', :width => '200'%>
-<%= image_tag 'sample4.jpg', :width => '200'%>
-<%= image_tag 'sample5.jpg', :width => '200'%>
-</center>
-<br>
-<div>
-  少しワクワク感のあるQRコード年賀状，是非作ってみましょう．  
-</div>
-<br>
-<br>
