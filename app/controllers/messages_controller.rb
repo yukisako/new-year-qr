@@ -4,8 +4,20 @@ class MessagesController < ApplicationController
     @msg = Message.last
     @message = Message.new
     unless @messages.length == 0
-      str = (@msg.body + "\n\n" + @msg.name + "さんからのメッセージです").encode("Shift_JIS")
-      qr = RQRCode::QRCode.new( str, :size => 10, :level => :h ).to_img
+      #str = (@msg.body + "\n\n" + @msg.name + "さんからのメッセージです").encode("Shift_JIS")
+      
+
+      begin
+         str = (@msg.body + "\n\n" + @msg.name + "さんからのメッセージです").encode("Shift_JIS")
+      rescue Encoding::UndefinedConversionError
+        puts $!.error_char.dump   #=> "\u{a0}"
+      end
+      begin
+        qr = RQRCode::QRCode.new( str, :size => 10, :level => :h ).to_img
+      rescue
+        str = "絵文字は使えません...ごめんなさい"
+        qr = RQRCode::QRCode.new( str, :size => 10, :level => :h ).to_img
+      end
       qr.resize(200, 200).save("app/assets/images/test.png")
     end
   end
