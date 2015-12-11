@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
       begin
         qr = RQRCode::QRCode.new( str, :size => 10, :level => :h ).to_img
       rescue
-        str = "絵文字は使えません...ごめんなさい"
+        str = "特殊文字が入っていて使えません...ごめんなさい"
         qr = RQRCode::QRCode.new( str, :size => 10, :level => :h ).to_img
       end
       qr.resize(200, 200).save("app/assets/images/test.png")
