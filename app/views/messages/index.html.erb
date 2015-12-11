@@ -2,10 +2,9 @@
   <div class="panel-heading">
     最近作成されたメッセージ一覧
   </div>
-
   <div class="panel-body">
-    <% @size = 10 unless @size %>
-    <% num = @size < 11 ? @size+1 : 10 %> 
+    <% @size = Message.all.length - 1 unless @size %>
+    <% num = @size < 10 ? @size+1 : 10 %> 
     <% num.times do |i| %>
       <span class="label label-info"><%= @messages[@size-i].name %></span> <%= @messages[@size-i].body %>
       <br>
