@@ -1,10 +1,9 @@
 class MessagesController < ApplicationController
   def index
-    @messages = Message.all
+    @messages = Message.all.limit(10).order("created_at DESC")
     @msg = Message.last
     @message = Message.new
-    @size = @messages.length-1
-    unless @size == -1
+    unless @messages.length == 0
       str = (@msg.body + "\n\n" + @msg.name + "さんからのメッセージです").encode("Shift_JIS")
       qr = RQRCode::QRCode.new( str, :size => 10, :level => :h ).to_img
       qr.resize(200, 200).save("app/assets/images/test.png")

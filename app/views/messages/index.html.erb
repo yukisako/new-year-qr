@@ -2,11 +2,9 @@
   <div class="panel-heading">
     最近作成されたメッセージ一覧
   </div>
-  <div class="panel-body">
-    <% @size = Message.all.length - 1 unless @size %>
-    <% num = @size < 10 ? @size+1 : 10 %> 
-    <% num.times do |i| %>
-      <span class="label label-info"><%= @messages[@size-i].name %></span> <%= @messages[@size-i].body %>
+  <div class="panel-body"> 
+    <% Message.all.limit(10).order("created_at DESC").each do |message| %>
+      <span class="label label-info"><%= message.name %></span> <%= message.body %>
       <br>
     <% end %>
   </div>
